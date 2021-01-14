@@ -1,5 +1,6 @@
-package com.winway.qrcode;
+package com.winway;
 
+import com.winway.Application;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

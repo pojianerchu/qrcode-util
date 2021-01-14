@@ -1,4 +1,4 @@
-package com.winway.qrcode.utils;
+package com.winway.utils;
 
 /**
  * @Author GuoYongMing

@@ -1,4 +1,4 @@
-package com.winway.qrcode.config;
+package com.winway.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

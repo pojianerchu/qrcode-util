@@ -1,4 +1,4 @@
-package com.winway.qrcode.utils;
+package com.winway.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +20,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.winway.qrcode.enums.EmpModelEnum;
+import com.winway.enums.EmpModelEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFDataValidationHelper;

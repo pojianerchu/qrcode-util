@@ -1,4 +1,4 @@
-package com.winway.qrcode;
+package com.winway;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

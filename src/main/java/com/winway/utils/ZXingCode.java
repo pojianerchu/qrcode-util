@@ -1,4 +1,4 @@
-package com.winway.qrcode.utils;
+package com.winway.utils;
 
 import com.google.zxing.*;
 import com.google.zxing.common.BitMatrix;
@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

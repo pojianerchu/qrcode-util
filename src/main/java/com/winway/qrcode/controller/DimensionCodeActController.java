@@ -1,11 +1,11 @@
 package com.winway.qrcode.controller;
 
 import com.google.zxing.BarcodeFormat;
-import com.winway.qrcode.enums.EmpModelEnum;
-import com.winway.qrcode.enums.ImpModelEnum;
+import com.winway.enums.EmpModelEnum;
+import com.winway.enums.ImpModelEnum;
 import com.winway.qrcode.mapper.QrcodeMapper;
 import com.winway.qrcode.model.Message;
-import com.winway.qrcode.utils.*;
+import com.winway.utils.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

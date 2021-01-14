@@ -1,4 +1,4 @@
-package com.winway.qrcode.utils;
+package com.winway.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.winway.qrcode.enums.ImpModelEnum;
+import com.winway.enums.ImpModelEnum;
 import com.winway.qrcode.model.Message;
 import org.apache.logging.log4j.util.Strings;
 import org.apache.poi.EncryptedDocumentException;

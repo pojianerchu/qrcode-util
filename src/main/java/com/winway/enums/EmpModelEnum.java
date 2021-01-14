@@ -1,4 +1,4 @@
-package com.winway.qrcode.enums;
+package com.winway.enums;
 
 import com.winway.qrcode.model.Qrcode;
 
