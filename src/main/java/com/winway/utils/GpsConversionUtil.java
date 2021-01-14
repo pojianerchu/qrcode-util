@@ -1,5 +1,7 @@
 package com.winway.utils;
 
+import org.locationtech.proj4j.*;
+
 /**
  * @Author GuoYongMing
  * @Date 2021/1/8 11:51
@@ -73,9 +75,103 @@ public class GpsConversionUtil {
         return ret;
     }
 
+
+
+
+    /**
+     * xian80 3度带 111E 转 wgs84
+     * @param x
+     * @param y
+     * @return
+     *
+     * https://blog.csdn.net/sinat_32857543/article/details/108713783
+     */
+    public static String Xian80_To_WGS84(double x ,double y){
+        CRSFactory targetFactory = new CRSFactory();
+        CRSFactory crsFactory = new CRSFactory();
+
+        //源坐标系统(xian80 3度带 111E)
+        String srcCRS = "2382";
+        String srcCRS_params="+proj=tmerc +lat_0=0 +lon_0=111 +k=1 +x_0=500000 +y_0=0 +towgs84=-340.837355,928.607907,342.347456,3.108375,6.805874,2.513279,164.630038 +units=m +no_defs ";
+        CoordinateReferenceSystem  src = crsFactory.createFromParameters(srcCRS,srcCRS_params);
+
+        //目标坐标系统
+        String target_param =  "+proj=longlat +datum=WGS84 +no_defs ";
+        CoordinateReferenceSystem target = targetFactory.createFromParameters("wgs84", target_param);
+
+        CoordinateTransformFactory ctf = new CoordinateTransformFactory();
+        org.locationtech.proj4j.CoordinateTransform transform = ctf.createTransform(src, target);
+        ProjCoordinate projCoordinate = new ProjCoordinate(x, y);
+        transform.transform(projCoordinate, projCoordinate);
+
+        return projCoordinate.x +","+ projCoordinate.y;
+    }
+
+
+    ////////////////方法二（有问题）
+    //https://blog.csdn.net/xlp789/article/details/89471387
+    /**
+     * xian80 3度带 111E 转 wgs84
+     * @return
+     */
+    public static CoordinateTransform coordtrans() {
+
+        CRSFactory targetFactory = new CRSFactory();
+        CRSFactory crsFactory = new CRSFactory();
+        //目标坐标系统
+        String target_param =  "+proj=longlat +datum=WGS84 +no_defs ";
+        CoordinateReferenceSystem target = targetFactory.createFromParameters("wgs84", target_param);
+        //源坐标系统
+        String xian80_param = "+proj=longlat +a=6378140 +b=6356755.288157528 +towgs84=115.8,-154.4,-82.3,0,0,0,8 +no_defs ";
+        CoordinateReferenceSystem xian80 = crsFactory.createFromParameters("xian80", xian80_param);
+
+        CoordinateTransformFactory ctf = new CoordinateTransformFactory();
+        CoordinateTransform transform = ctf.createTransform(xian80, target);
+        return transform;
+    }
+    public static String Xian80_To_WGS84jia(double lng,double lat){
+        Double dNorth=null;
+        Double dEast=null;
+        CoordinateTransform transforms=GpsConversionUtil.coordtrans();
+
+        if (transforms != null) {
+            ProjCoordinate projCoordinate = new ProjCoordinate(lng,lat);
+            transforms.transform(projCoordinate, projCoordinate);
+            dNorth = projCoordinate.y;
+            dEast = projCoordinate.x;
+            System.out.print(dNorth);
+            System.out.print("/");
+            System.out.print(dEast);
+
+        }
+        String lngLatStr=dEast+","+dNorth;
+        String[] lngLat=lngLatStr.split(",");
+        double _lng=Double.parseDouble(lngLat[0]);
+        double _lat=Double.parseDouble(lngLat[1]);
+        return _lng+","+_lat;
+    }
+
     public static void main(String[] args) {
         //102.5490253194,24.3507087611
-        double[] values= GpsConversionUtil.gps84_To_Gcj02(24.3507087611,102.5490253194);
+
+        double lng=2624390.596;
+        double lat=435444.756;
+        String name="L39";
+
+        String lngLatStr=GpsConversionUtil.Xian80_To_WGS84(lng,lat);
+        String[] lngLat=lngLatStr.split(",");
+        double _lng=Double.parseDouble(lngLat[0]);
+        double _lat=Double.parseDouble(lngLat[1]);
+        //////////////////////////////////////
+        String content=GpsConversionUtil.generateQrcodeUrl(_lng,_lat,name);
+        System.out.println(content);
+
+
+
+
+
+
+       /* double[] values= GpsConversionUtil.gps84_To_Gcj02(24.3507087611,102.5490253194);
 
         double lng=values[1];
         double lat=values[0];
@@ -83,6 +179,8 @@ public class GpsConversionUtil {
         String url="https://m.amap.com/share/index/src=app_share&callnative=1&callapp=0&lnglat=%s,%s&name=%s";
         url=String.format(url,lng,lat,name);
         System.out.println(url);
+
+        */
 
     }
 }

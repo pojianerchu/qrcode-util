@@ -3,11 +3,9 @@ package com.winway.qrcode.controller;
 import com.google.zxing.BarcodeFormat;
 import com.winway.enums.EmpModelEnum;
 import com.winway.enums.ImpModelEnum;
-import com.winway.qrcode.mapper.QrcodeMapper;
 import com.winway.qrcode.model.Message;
 import com.winway.utils.*;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,8 +29,6 @@ import java.util.List;
 @Controller
 public class DimensionCodeActController {
 
-    @Autowired
-    private QrcodeMapper qrcodeMapper;
 
     @RequestMapping("/index")
     public String index(){
@@ -131,7 +127,14 @@ public class DimensionCodeActController {
             double lng=Double.parseDouble(fields[1]);
             double lat=Double.parseDouble(fields[2]);
             String content=GpsConversionUtil.generateQrcodeUrl(lng,lat,name);
-            //contents.add(content);
+
+            //////////////////////////////////////西安80转84
+         /*   String lngLatStr=GpsConversionUtil.Xian80_To_WGS84(lng,lat);
+            String[] lngLat=lngLatStr.split(",");
+            double _lng=Double.parseDouble(lngLat[0]);
+            double _lat=Double.parseDouble(lngLat[1]);
+            String content=GpsConversionUtil.generateQrcodeUrl(_lng,_lat,name);*/
+            //////////////////////////////////////
 
             if(StringUtils.isNotBlank(content)){
                 if(size==null){

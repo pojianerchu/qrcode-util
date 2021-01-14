@@ -4,6 +4,7 @@ import com.winway.qrcodeMP.entity.Qrcode;
 import com.winway.qrcodeMP.mapper.QrcodeMapper;
 import com.winway.qrcodeMP.service.IQrcodeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +17,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class QrcodeServiceImpl extends ServiceImpl<QrcodeMapper, Qrcode> implements IQrcodeService {
+
 
 }
