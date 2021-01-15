@@ -1,9 +1,8 @@
-package com.winway.qrcodeMP.entity;
+package com.winway.qrcodeMP2.entity;
 
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,26 +14,19 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2021-01-14
+ * @since 2021-01-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Qrcode implements Serializable {
+public class Fl implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.UUID)
     private String id;
 
-    @TableField(value = "name")
-    private String name;
-
-    private Double lng;
-
-    private Double lat;
-
-    private String gymNihao;
+    private Float fl;
 
 
 }

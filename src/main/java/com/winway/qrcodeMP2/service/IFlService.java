@@ -1,9 +1,9 @@
-package com.winway.qrcodeMP.service;
+package com.winway.qrcodeMP2.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.winway.qrcodeMP.entity.Qrcode;
+import com.winway.qrcodeMP2.entity.Fl;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,10 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author jobob
- * @since 2021-01-14
+ * @since 2021-01-15
  */
-public interface IQrcodeService extends IService<Qrcode> {
+public interface IFlService extends IService<Fl> {
 
-    IPage<Qrcode> selectPageVo(int page, int size, Wrapper<Qrcode> wrapper);
-
+    IPage<Fl> selectPageVo(int page, int size, Wrapper<Fl> wrapper);
 }
