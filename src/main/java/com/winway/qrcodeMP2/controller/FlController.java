@@ -3,11 +3,14 @@ package com.winway.qrcodeMP2.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.winway.qrcodeMP.entity.Qrcode;
-import com.winway.qrcodeMP.service.IQrcodeService;
+import com.winway.springUtils.ApplicationContextProvider;
 import com.winway.qrcodeMP2.entity.Fl;
+import com.winway.qrcodeMP2.mapper.FlMapper;
 import com.winway.qrcodeMP2.service.IFlService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ import java.util.List;
  * @since 2021-01-15
  */
 @RestController
+@Slf4j
 @RequestMapping("/qrcodeMP2/fl")
 public class FlController {
 
@@ -62,17 +66,38 @@ public class FlController {
      * http://localhost:8080/qrcodeMP2/fl/selectByMySelect
      */
     @GetMapping("/selectByMySelect")
-    public void selectByMySelect() {
+    public  List<Fl> selectByMySelect() {
         QueryWrapper<Fl> wrapper = new QueryWrapper();
-        wrapper.eq("name", "123");
+        wrapper.eq("name", "ss");
         List<Fl> users = flService.selectByWrapper(wrapper);
         users.forEach(System.out::println);
+        return users;
     }
     //http://localhost:8080/qrcodeMP2/fl/selectByName
     @GetMapping("/selectByName")
     public List<Fl> selectByName() {
+
         List<Fl> users = flService.searchByName("ss");
        return users;
+    }
+
+
+    // http://localhost:8080/qrcodeMP2/fl/testMybatis
+    @RequestMapping(value = "/testMybatis")
+    public void testMybatis() {
+        SqlSessionFactory sqlSessionFactory= ApplicationContextProvider.getBean("sqlSessionFactoryTest2");
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        FlMapper testMapper = sqlSession.getMapper(FlMapper.class);
+        for (int i = 0; i < 3; i++) {
+            Fl selectByPrimaryKey = testMapper.selectByPrimaryKey("3");
+            log.info("结果：" + selectByPrimaryKey.getName());
+            if (i == 2) {
+                selectByPrimaryKey.setName("刘惜君的妹妹");
+                testMapper.updateById(selectByPrimaryKey);
+                Fl selectByPrimaryKey2 = testMapper.selectByPrimaryKey("3");
+                log.info("更新后的用户名：" + selectByPrimaryKey2.getName());
+            }
+        }
     }
 
 }

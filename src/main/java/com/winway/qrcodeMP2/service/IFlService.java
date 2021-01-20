@@ -25,5 +25,7 @@ public interface IFlService extends IService<Fl> {
 
     List<Fl> searchByName(String name);
 
+    Fl selectByPrimaryKey(String id);
+
 
 }

@@ -31,4 +31,6 @@ public interface FlMapper extends BaseMapper<Fl> {
 
     List<Fl> searchByName(@Param("name") String name);
 
+    Fl selectByPrimaryKey(String id);
+
 }

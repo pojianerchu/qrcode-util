@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.winway.qrcodeMP2.mapper.FlMapper">
+    <cache/>
 
     <select id="selectByWrapper" resultType="com.winway.qrcodeMP2.entity.Fl">
             SELECT * FROM fl ${ew.customSqlSegment}
     </select>
+
     <select id="searchByName" resultType="com.winway.qrcodeMP2.entity.Fl">
         select * from fl where name = #{name}
+    </select>
+
+    <select id="selectByPrimaryKey" resultType="com.winway.qrcodeMP2.entity.Fl">
+       select * from fl where id = #{id}
     </select>
 
 </mapper>

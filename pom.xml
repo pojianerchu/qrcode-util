@@ -156,6 +156,13 @@
             <artifactId>proj4j</artifactId>
             <version>1.1.1</version>
         </dependency>
+
+
+        <!--配置redia缓存-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

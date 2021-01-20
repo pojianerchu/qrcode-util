@@ -44,4 +44,9 @@ public class FlServiceImpl extends ServiceImpl<FlMapper, Fl> implements IFlServi
     public List<Fl> searchByName(String name) {
         return flMapper.searchByName(name);
     }
+
+    @Override
+    public Fl selectByPrimaryKey(String id){
+        return flMapper.selectByPrimaryKey(id);
+    }
 }
