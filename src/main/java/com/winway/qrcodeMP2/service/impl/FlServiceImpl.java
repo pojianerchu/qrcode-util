@@ -1,6 +1,7 @@
 package com.winway.qrcodeMP2.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.winway.qrcodeMP.entity.Qrcode;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -30,5 +32,16 @@ public class FlServiceImpl extends ServiceImpl<FlMapper, Fl> implements IFlServi
     @Override
     public IPage<Fl> selectPageVo(int page, int size, Wrapper<Fl> wrapper) {
         return flMapper.selectPage(new Page<>(page,size),wrapper);
+    }
+
+    @Override
+    public List<Fl> selectByWrapper(QueryWrapper<Fl> wrapper) {
+
+        return flMapper.selectByWrapper(wrapper);
+    }
+
+    @Override
+    public List<Fl> searchByName(String name) {
+        return flMapper.searchByName(name);
     }
 }

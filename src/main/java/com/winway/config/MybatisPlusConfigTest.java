@@ -6,13 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParser
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import javax.sql.DataSource;
 
@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  * @Version 1.0
  */
 @Configuration
-@MapperScan(basePackages = {"com.winway.qrcodeMP.mapper"},sqlSessionTemplateRef = "sqlSessionTemplateTest")//sqlSessionFactoryRef = "sqlSessionFactoryTest"
+@MapperScan(basePackages = {"com.winway.qrcodeMP.mapper"},sqlSessionFactoryRef = "sqlSessionFactoryTest")//
 public class MybatisPlusConfigTest {
     @Autowired
     @Qualifier("test")
@@ -32,7 +32,8 @@ public class MybatisPlusConfigTest {
     public SqlSessionFactory sqlSessionFactoryTest() throws Exception {
         MybatisSqlSessionFactoryBean factoryBean=new MybatisSqlSessionFactoryBean();
         factoryBean.setDataSource(testDataSource); // 连接 test 库
-        //factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResource("classpath:mapper.qrcodeMP/*.xml"));
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        factoryBean.setMapperLocations(resolver.getResources("classpath:mapper/qrcodeMP/*Mapper.xml"));
 
         //手动设置session工厂时，需要手动添加分页插件
         Interceptor[] plugins = new Interceptor[1];
@@ -41,19 +42,7 @@ public class MybatisPlusConfigTest {
 
         return factoryBean.getObject();
     }
-    @Bean(name = "testTransactionManager")
-    public DataSourceTransactionManager testTransactionManager(){
-
-        return new DataSourceTransactionManager(testDataSource);
-    }
-
-    @Bean(name = "sqlSessionTemplateTest")
-    public SqlSessionTemplate sqlSessionTemplateTest() throws Exception {
-        SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactoryTest()); // 使用上面配置的Factory
-        return template;
-    }
-
-    @Bean
+    @Bean(name = "paginationInterceptorTest")
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         paginationInterceptor.setLimit(300);
@@ -61,18 +50,4 @@ public class MybatisPlusConfigTest {
         paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
         return paginationInterceptor;
     }
-
-     /*@Bean
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
-        // paginationInterceptor.setOverflow(false);
-        // 设置最大单页限制数量，默认 500 条，-1 不受限制
-        // paginationInterceptor.setLimit(500);
-        // 开启 count 的 join 优化,只针对部分 left join
-        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
-        return paginationInterceptor;
-    }*/
-
-
 }

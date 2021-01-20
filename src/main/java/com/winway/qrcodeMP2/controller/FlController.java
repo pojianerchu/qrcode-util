@@ -56,4 +56,23 @@ public class FlController {
         return list;
     }
 
+
+    /**
+     * 自定义sql查询语句
+     * http://localhost:8080/qrcodeMP2/fl/selectByMySelect
+     */
+    @GetMapping("/selectByMySelect")
+    public void selectByMySelect() {
+        QueryWrapper<Fl> wrapper = new QueryWrapper();
+        wrapper.eq("name", "123");
+        List<Fl> users = flService.selectByWrapper(wrapper);
+        users.forEach(System.out::println);
+    }
+    //http://localhost:8080/qrcodeMP2/fl/selectByName
+    @GetMapping("/selectByName")
+    public List<Fl> selectByName() {
+        List<Fl> users = flService.searchByName("ss");
+       return users;
+    }
+
 }

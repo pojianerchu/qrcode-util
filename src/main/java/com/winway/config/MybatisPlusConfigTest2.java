@@ -6,12 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParser
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import javax.sql.DataSource;
 
@@ -31,6 +32,9 @@ public class MybatisPlusConfigTest2 {
     public SqlSessionFactory sqlSessionFactoryTest2() throws Exception {
         MybatisSqlSessionFactoryBean factoryBean=new MybatisSqlSessionFactoryBean();
         factoryBean.setDataSource(test2DataSource); // 连接 test 库
+
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        factoryBean.setMapperLocations(resolver.getResources("classpath:mapper/qrcodeMP2/*Mapper.xml"));
 
         //手动设置session工厂时，需要手动添加分页插件
         Interceptor[] plugins = new Interceptor[1];

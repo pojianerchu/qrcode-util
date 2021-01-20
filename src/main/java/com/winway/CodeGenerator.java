@@ -14,17 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 /**
  * @Author GuoYongMing
  * @Date 2021/1/13 17:09
  * @Version 1.0
  */
+
 public class CodeGenerator {
     /**
      * <p>
      * 读取控制台内容
      * </p>
      */
+
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
         StringBuilder help = new StringBuilder();
@@ -91,7 +94,7 @@ public class CodeGenerator {
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
-        /*
+/*
         cfg.setFileCreate(new IFileCreate() {
             @Override
             public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
@@ -106,6 +109,7 @@ public class CodeGenerator {
             }
         });
         */
+
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
 

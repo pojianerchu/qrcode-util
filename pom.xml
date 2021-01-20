@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.winway.qrcode</groupId>
@@ -76,6 +76,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
             <!-- <version>5.1.37</version>-->
         </dependency>
         <dependency>
@@ -83,25 +84,25 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- mybatis-plus -->
+        <!-- mybatis-plus 3.2.0-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.2.0</version>
         </dependency>
 
-        <dependency>
+       <!-- <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.1.6</version>
-        </dependency>
+        </dependency>-->
 
         <!-- 多数据源 -->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>3.2.1</version>
-        </dependency>
+        </dependency>-->
 
 
 
@@ -125,11 +126,22 @@
             <version>2.0</version>
         </dependency>
 
-        <!-- freemarker 模板引擎 -->
+        <!-- freemarker 模板引擎2.3.23  -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.23</version>
+            <version>2.3.28</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>1.7.0</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- beetl 模板引擎 -->
@@ -151,8 +163,29 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
+       <!-- <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>
+                        mapper.qrcodeMP2.*.xml
+                    </include>
+                    <include>
+                        mapper.qrcodeMP.*.xml
+                    </include>
+                </includes>
+            </resource>
+        </resources>-->
     </build>
 
 </project>

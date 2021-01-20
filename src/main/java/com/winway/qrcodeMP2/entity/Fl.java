@@ -26,7 +26,9 @@ public class Fl implements Serializable {
     @TableId(value = "id", type = IdType.UUID)
     private String id;
 
-    private Float fl;
+    private Float height;
+
+    private  String name;
 
 
 }

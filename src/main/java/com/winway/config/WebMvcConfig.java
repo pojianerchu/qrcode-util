@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date 2021/1/11 10:17
  * @Version 1.0
  */
-@Configuration
+/*@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     //设置默认访问的静态页面  http://localhost:8080/
@@ -20,4 +20,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         WebMvcConfigurer.super.addViewControllers(registry);
     }
-}
+}*/
